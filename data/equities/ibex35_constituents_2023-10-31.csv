@@ -1,0 +1,36 @@
+Ticker,Empresa,Sede,Entrada,Sector[30]​,ISIN,Ponderación (Sep. 2022)
+ANA,Acciona,Alcobendas,2015,Construcción,ES0125220311,112
+ANE,Acciona Energía,Alcobendas,2022,Energías renovables,ES0105563003,36
+ACX,Acerinox,Madrid,2015,"Mineral, metales y transformación",ES0132105018,49
+ACS,ACS,Madrid,1998,Construcción,ES0167050915,203
+AENA,Aena,Madrid,2015,Transporte y distribución,ES0105046009,351
+AMS,Amadeus IT Group,Madrid,2011,Electrónica y software,ES0109067019,519
+MTS,ArcelorMittal,Ciudad de Luxemburgo,2009,"Mineral, metales y transformación",LU1598757687,76
+SAB,Banco Sabadell,Sabadell,2004,Bancos y cajas de ahorro,ES0113860A34,141
+BKT,bankinter.,Madrid,1992,Bancos y cajas de ahorro,ES0113679I37,115
+BBVA,BBVA,Bilbao,1992,Bancos y cajas de ahorro,ES0113211835,948
+CABK,CaixaBank,Valencia,2009,Bancos y cajas de ahorro,ES0140609019,493
+CLNX,Cellnex Telecom,Madrid,2016,Telecomunicaciones y otros,ES0105066007,419
+ENG,Enagás,Madrid,2003,Electricidad y gas,ES0130960018,89
+ELE,Endesa,Madrid,1992,Electricidad y gas,ES0130670112,161
+FER,Ferrovial,Ámsterdam,1999,Construcción,ES0118900010,443
+FDR,Fluidra,San Cugat del Vallés,2021,Ingeniería y otros,ES0137650018,55
+GRF,Grifols,Barcelona,2008,Productos farmacéuticos y biotecnología,ES0171996087,97
+IAG,International Airlines Group,Madrid,2011,Transporte y distribución,ES0177542018,176
+IBE,Iberdrola,Bilbao,1992,Electricidad y gas,ES0144580Y14,1427
+ITX,Inditex,Arteijo,2001,"Textil, vestido y calzado",ES0148396007,1303
+IDR,Indra,Alcobendas,1999,Electrónica y software,ES0118594417,50
+COL,Inmobiliaria Colonial,Madrid,2007,SOCIMI,ES0139140174,49
+LOG,Logista,Leganés,2022,Transporte y Distribución,ES0105027009,53
+MAP,MAPFRE,Majadahonda,1992,Seguros,ES0124244E34,78
+MEL,Meliá Hotels International,Palma de Mallorca,2016,"Ocio, turismo y hostelería",ES0176252718,20
+MRL,Merlin Properties,Madrid,2015,SOCIMI,ES0105025003,79
+NTGY,Naturgy,Madrid,2018,Electricidad y gas,ES0116870314,111
+RED,Redeia,Alcobendas,2000,Electricidad y gas,ES0173093024,170
+REP,Repsol,Madrid,1992,Petróleo,ES0173516115,378
+ROVI,Laboratorios Rovi,Pozuelo de Alarcón,2021,Productos farmacéuticos y biotecnología,ES0157261019,35
+SCYR,Sacyr,Madrid,2022,Construcción,ES0182870214,40
+SAN,Santander,Santander,1992,Bancos y cajas de ahorro,ES0113900J37,1201
+SLR,Solaria,Madrid,2020,Energías renovables,ES0165386014,30
+TEF,Telefónica,Madrid,1992,Telecomunicaciones y otros,ES0178430E18,449
+UNI,Unicaja,Málaga,2022,Bancos y cajas de ahorro,ES0180907000,45
