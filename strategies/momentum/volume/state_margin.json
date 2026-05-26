@@ -1,0 +1,21 @@
+{
+  "tranches": {
+    "2026-05-24": {
+      "top": [
+        "NEAR",
+        "ONDO",
+        "WLD",
+        "2Z",
+        "KAIA"
+      ],
+      "bot": [
+        "WIF",
+        "LDO",
+        "RUNE",
+        "AXS",
+        "APE"
+      ],
+      "days_left": 4
+    }
+  }
+}
