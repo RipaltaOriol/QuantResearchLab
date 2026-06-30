@@ -1,8 +1,9 @@
+import os
 import time
 from typing import List, Set
-
 import pandas as pd
 import requests
+from dotenv import load_dotenv
 
 STABLECOINS_HARDCODED = {
     "USDT",
@@ -36,10 +37,17 @@ STABLECOINS_HARDCODED = {
     "PAX",
 }
 
-
+API_KEY = os.environ["COINGECKO_KEY"]
+PRO_URL = "https://pro-api.coingecko.com/api/v3"
 class CoingeckoProvider:
     def __init__(self, delay: int = 7):
         self.delay = delay
+
+    def get_coins(self) -> dict:
+        headers = {"x-cg-pro-api-key": API_KEY}
+        res = requests.get(f"{PRO_URL}/coins/list", headers=headers)
+        res.raise_for_status()
+        return {c["id"]: c["symbol"] for c in res.json()}
 
     def get_top_coins(self, n: int = 250) -> List:
         """
@@ -95,6 +103,36 @@ class CoingeckoProvider:
         except Exception as e:
             print(f"  CoinGecko stablecoin fetch error: {e}, using hardcoded list")
         return symbols
+    
+    def get_coins_by_category(self, category_id: str) -> Set:
+        """
+        Gets a list of coins from the given category
+        """
+        symbols = set()
+        try:
+            resp = requests.get(
+                "https://api.coingecko.com/api/v3/coins/markets",
+                params={
+                    "vs_currency": "usd",
+                    "category": category_id,
+                    "per_page": 250,
+                    "page": 1,
+                },
+                timeout=15,
+            )
+            if resp.status_code == 200:
+                for c in resp.json():
+                    symbols.add(c["symbol"].upper())
+                print(
+                    f"  Loaded {len(symbols)} {category_id} symbols"
+                )
+            else:
+                print(
+                    f"  CoinGecko {category_id} fetch failed ({resp.status_code}), using hardcoded list"
+                )
+        except Exception as e:
+            print(f"  CoinGecko {category_id} fetch error: {e}")
+        return symbols
 
     def get_coin_data(self, coin_id, days: int = 365):
         """
@@ -133,3 +171,50 @@ class CoingeckoProvider:
                 }
             )
         return result
+
+    def get_coin_marketdata(self, coin_id, start: str, end: str, currency: str = "usd", symbol: str = None, is_price: bool = False) -> pd.DataFrame:
+        """
+        Improvement over the previus API 'get_coin_data'. Reconcile results
+        """
+        headers = {"x-cg-pro-api-key": API_KEY}
+        params = {
+            "vs_currency": currency,
+            "from": start,
+            "to": end,
+        }
+        res = requests.get(f"{PRO_URL}/coins/{coin_id}/market_chart/range",
+                           headers=headers,
+                           params=params
+                            )
+
+        if res.status_code == 429:
+            time.sleep(10)
+            return self.get_coin_marketdata(coin_id, start, end, currency)
+        
+        if res.status_code != 200:
+            print(f"Skipping {coin_id}: {res.status_code}")
+            return pd.DataFrame()
+    
+        data = res.json()
+
+        prcs = pd.DataFrame(data.get("prices", []), columns=["timestamp", "prices"])
+        caps = pd.DataFrame(data.get("market_caps", []), columns=["timestamp", "market_cap"])
+        vols = pd.DataFrame(data.get("total_volumes", []), columns=["timestamp", "volume"])
+
+        if caps.empty or vols.empty:
+            return caps
+        
+        df = caps.merge(vols, on="timestamp", how="outer")
+
+        if is_price:
+            df = df.merge(prcs, on='timestamp', how="outer")
+
+        df["date"] = pd.to_datetime(df["timestamp"], unit="ms", utc=True).dt.date
+        df["coin_id"] = coin_id
+
+        if symbol:
+            df['symbol'] = symbol
+
+        if is_price:
+            return df[["date", "coin_id", "market_cap", "prices"]]
+        return df[["date", "coin_id", "market_cap", "volume"]]
